@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS-ICTU Solver Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Thêm font mới tăng tính chuyên nghiệp -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header Section - Thiết kế hiện đại hơn -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo-animation">
+                    <i class="fa-solid fa-robot logo-icon pulse"></i>
+                </div>
+                <div class="title-container">
+                    <h1>LMS-ICTU ASSISTANT PRO</h1>
+                    <div class="version-badge">
+                        <span class="premium-mark">PREMIUM</span>
+                        <span>v2.5</span>
+                    </div>
+                </div>
+            </div>
+            <div id="userGreeting" class="user-greeting">
+                <div class="user-avatar">
+                    <i class="fa-solid fa-user-circle"></i>
+                </div>
+                <div class="user-info">
+                    <span id="userName">Người dùng</span>
+                    <span class="user-status">Premium</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Summary - Thêm mới với visualization -->
+        <div class="dashboard-summary">
+            <div class="statistics-bar">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-check-circle"></i>
+                    </div>
+                    <div class="tab-content" id="accountTab">
+                        <div class="settings-section">
+                            <h4>Thông tin tài khoản</h4>
+                            <div class="account-info">
+                                <div class="account-avatar">
+                                    <i class="fa-solid fa-user-circle"></i>
+                                </div>
+                                <div class="account-details">
+                                    <div class="account-name">Người dùng Premium</div>
+                                    <div class="account-email">user@example.com</div>
+                                    <div class="account-plan">
+                                        <span class="plan-badge premium">Premium</span>
+                                        <span class="plan-expiry">Hết hạn: 19/11/2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="account-actions">
+                                <button class="secondary-btn">
+                                    <i class="fa-solid fa-user-edit"></i> Chỉnh sửa
+                                </button>
+                                <button class="secondary-btn">
+                                    <i class="fa-solid fa-sign-out-alt"></i> Đăng xuất
+                                </button>
+                            </div>
+                        </div>
+                        <div class="settings-section">
+                            <h4>Đồng bộ hóa</h4>
+                            <div class="setting-item">
+                                <label for="cloudSyncToggle">Đồng bộ cloud</label>
+                                <input type="checkbox" id="cloudSyncToggle" class="toggle-input" checked>
+                                <label for="cloudSyncToggle" class="toggle-label small">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="sync-status">
+                                <div class="sync-info">
+                                    <i class="fa-solid fa-cloud-check"></i>
+                                    <span>Đã đồng bộ lúc 10:15 AM</span>
+                                </div>
+                                <button class="icon-btn" title="Đồng bộ ngay">
+                                    <i class="fa-solid fa-sync"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <div class="stat-info">
+                        <span id="solvedCount" class="stat-value">126</span>
+                        <span class="stat-label">Đã hoàn thành</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 70%"></div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span id="averageTime" class="stat-value">2.4s</span>
+                        <span class="stat-label">Thời gian TB</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span id="accuracy" class="stat-value">99.7%</span>
+                        <span class="stat-label">Độ chính xác</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 98%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <!-- Action Card - Thiết kế hiện đại hơn -->
+            <div class="card action-card premium">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Trợ lý thông minh</h2>
+                    <div class="premium-indicator">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="action-section">
+                        <button id="autoSolveBtn" class="primary-btn premium-btn">
+                            <div class="btn-content">
+                                <i class="fa-solid fa-brain"></i>
+                                <span>Phân tích ngay</span>
+                            </div>
+                            <span class="btn-highlight"></span>
+                        </button>
+
+                        <div class="options-container">
+                            <div class="toggle-container advanced-toggle">
+                                <input type="checkbox" id="autoFillToggle" class="toggle-input" checked>
+                                <label for="autoFillToggle" class="toggle-label">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">Tự động điền</span>
+                                </label>
+                            </div>
+                            
+                            <div class="toggle-container advanced-toggle">
+                                <input type="checkbox" id="autoSubmitToggle" class="toggle-input">
+                                <label for="autoSubmitToggle" class="toggle-label">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">Tự động nộp</span>
+                                </label>
+                            </div>
+
+                            <div class="toggle-container advanced-toggle">
+                                <input type="checkbox" id="enhancedModeToggle" class="toggle-input" checked>
+                                <label for="enhancedModeToggle" class="toggle-label">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">Chế độ nâng cao</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Card - Thiết kế chuyên nghiệp hơn -->
+            <div class="card result-card">
+                <div class="card-header result-header">
+                    <h2><i class="fa-solid fa-lightbulb"></i> Kết quả phân tích</h2>
+                    <div class="result-actions">
+                        <button id="refreshBtn" class="icon-btn" title="Làm mới kết quả">
+                            <i class="fa-solid fa-rotate"></i>
+                        </button>
+                        <button id="copyBtn" class="icon-btn" title="Sao chép kết quả">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                        <button id="shareBtn" class="icon-btn" title="Chia sẻ kết quả">
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+                        <div class="loader-container">
+                            <div class="loader-ring"></div>
+                            <div class="loader-ring-inner"></div>
+                        </div>
+                        <p>Đang phân tích dữ liệu...</p>
+                        <div class="processing-steps">
+                            <div class="step completed">
+                                <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+                                <div class="step-text">Thu thập thông tin</div>
+                            </div>
+                            <div class="step active">
+                                <div class="step-icon"><i class="fa-solid fa-sync fa-spin"></i></div>
+                                <div class="step-text">Phân tích nội dung</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">3</div>
+                                <div class="step-text">Tối ưu hóa kết quả</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">4</div>
+                                <div class="step-text">Hoàn tất</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="result" class="result-container">
+                        <div class="empty-state">
+                            <div class="premium-assistant-animation">
+                                <i class="fa-solid fa-robot empty-icon"></i>
+                                <div class="assistant-pulse"></div>
+                            </div>
+                            <p>Nhấn "Phân tích ngay" để bắt đầu</p>
+                            <span class="assistant-status">Trợ lý thông minh đang sẵn sàng</span>
+                        </div>
+                    </div>
+                    
+                    <div id="error-message" class="error-message" style="display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Card - Redesigned -->
+            <div class="card history-card premium">
+                <div class="card-header collapsible" id="historyHeader">
+                    <h2><i class="fa-solid fa-history"></i> Lịch sử phân tích</h2>
+                    <div class="header-actions">
+                        <button class="flat-btn" id="exportHistoryBtn" title="Xuất lịch sử">
+                            <i class="fa-solid fa-file-export"></i>
+                        </button>
+                        <button class="flat-btn" id="clearHistoryBtn" title="Xóa lịch sử">
+                            <i class="fa-solid fa-trash-alt"></i>
+                        </button>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </div>
+                </div>
+                <div class="card-body collapsible-content" id="historyContent" style="display: none;">
+                    <div class="filter-bar">
+                        <div class="search-container">
+                            <input type="text" placeholder="Tìm kiếm trong lịch sử..." class="search-input">
+                            <i class="fa-solid fa-search search-icon"></i>
+                        </div>
+                        <div class="filter-dropdown">
+                            <select class="filter-select">
+                                <option value="all">Tất cả</option>
+                                <option value="today">Hôm nay</option>
+                                <option value="week">Tuần này</option>
+                                <option value="month">Tháng này</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="history" class="history-container">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Thời gian <i class="fa-solid fa-sort-down sort-icon"></i></th>
+                                    <th>Tiêu đề</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyItems">
+                                <tr class="history-item">
+                                    <td>19/5/2025 10:23</td>
+                                    <td class="history-title">Bài tập 23 - Cấu trúc dữ liệu</td>
+                                    <td><span class="status-badge complete">Hoàn thành</span></td>
+                                    <td class="actions-cell">
+                                        <button class="table-btn view-btn" title="Xem"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="table-btn copy-btn" title="Sao chép"><i class="fa-regular fa-copy"></i></button>
+                                        <button class="table-btn delete-btn" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="history-item">
+                                    <td>19/5/2025 09:45</td>
+                                    <td class="history-title">Quiz 7 - Mạng máy tính</td>
+                                    <td><span class="status-badge complete">Hoàn thành</span></td>
+                                    <td class="actions-cell">
+                                        <button class="table-btn view-btn" title="Xem"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="table-btn copy-btn" title="Sao chép"><i class="fa-regular fa-copy"></i></button>
+                                        <button class="table-btn delete-btn" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="history-item">
+                                    <td>18/5/2025 15:30</td>
+                                    <td class="history-title">Bài tập 12 - Lập trình Web</td>
+                                    <td><span class="status-badge complete">Hoàn thành</span></td>
+                                    <td class="actions-cell">
+                                        <button class="table-btn view-btn" title="Xem"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="table-btn copy-btn" title="Sao chép"><i class="fa-regular fa-copy"></i></button>
+                                        <button class="table-btn delete-btn" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="pagination">
+                            <button class="page-btn"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn">...</button>
+                            <button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Card - Thêm mới -->
+            <div class="card analytics-card premium">
+                <div class="card-header collapsible" id="analyticsHeader">
+                    <h2><i class="fa-solid fa-chart-line"></i> Phân tích hiệu suất</h2>
+                    <div class="header-actions">
+                        <span class="premium-tag">Premium</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </div>
+                </div>
+                <div class="card-body collapsible-content" id="analyticsContent" style="display: none;">
+                    <div class="analytics-container">
+                        <div class="analytics-summary">
+                            <div class="summary-item">
+                                <div class="summary-value">89%</div>
+                                <div class="summary-label">Tỷ lệ thành công</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-value">126</div>
+                                <div class="summary-label">Tổng phân tích</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-value">2.4s</div>
+                                <div class="summary-label">Thời gian trung bình</div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h4>Số lượng phân tích theo ngày</h4>
+                                <div class="chart-options">
+                                    <button class="chart-option active">7 ngày</button>
+                                    <button class="chart-option">30 ngày</button>
+                                    <button class="chart-option">Tất cả</button>
+                                </div>
+                            </div>
+                            <div class="chart-placeholder">
+                                <div class="chart-bars">
+                                    <div class="chart-bar" style="height: 40%"><span class="bar-value">12</span></div>
+                                    <div class="chart-bar" style="height: 65%"><span class="bar-value">18</span></div>
+                                    <div class="chart-bar" style="height: 80%"><span class="bar-value">22</span></div>
+                                    <div class="chart-bar" style="height: 55%"><span class="bar-value">15</span></div>
+                                    <div class="chart-bar" style="height: 70%"><span class="bar-value">19</span></div>
+                                    <div class="chart-bar active" style="height: 90%"><span class="bar-value">25</span></div>
+                                    <div class="chart-bar" style="height: 60%"><span class="bar-value">15</span></div>
+                                </div>
+                                <div class="chart-labels">
+                                    <div class="chart-label">13/5</div>
+                                    <div class="chart-label">14/5</div>
+                                    <div class="chart-label">15/5</div>
+                                    <div class="chart-label">16/5</div>
+                                    <div class="chart-label">17/5</div>
+                                    <div class="chart-label">18/5</div>
+                                    <div class="chart-label">19/5</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer - Nâng cấp -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="#" id="settingsBtn" class="footer-link"><i class="fa-solid fa-gear"></i> Cài đặt</a>
+                <a href="#" id="helpBtn" class="footer-link"><i class="fa-solid fa-circle-question"></i> Trợ giúp</a>
+                <a href="#" id="reportBtn" class="footer-link"><i class="fa-solid fa-bug"></i> Báo lỗi</a>
+                <a href="#" id="upgradeBtn" class="footer-link premium-link"><i class="fa-solid fa-crown"></i> Nâng cấp</a>
+            </div>
+            <div class="footer-credit">
+                <span class="version-info">Phiên bản Premium 2.5 • </span>
+                <span class="author">Phát triển bởi <strong>DƯƠNG VĂN THẢO</strong></span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Theme Picker - Nâng cấp -->
+    <div class="theme-picker">
+        <div class="theme-toggle-btn" id="themeToggleBtn">
+            <i class="fa-solid fa-palette"></i>
+        </div>
+        <div class="theme-panel" id="themePanel">
+            <div class="panel-header">
+                <h4>Tùy chỉnh giao diện</h4>
+                <button class="close-panel"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="panel-section">
+                <h5>Màu chủ đạo</h5>
+                <div class="theme-options">
+                    <div class="theme-color active" style="background-color: #4f46e5;" data-color="#4f46e5" title="Mặc định"></div>
+                    <div class="theme-color" style="background-color: #10b981;" data-color="#10b981" title="Xanh lá"></div>
+                    <div class="theme-color" style="background-color: #ef4444;" data-color="#ef4444" title="Đỏ"></div>
+                    <div class="theme-color" style="background-color: #f97316;" data-color="#f97316" title="Cam"></div>
+                    <div class="theme-color" style="background-color: #8b5cf6;" data-color="#8b5cf6" title="Tím"></div>
+                    <div class="theme-color" style="background-color: #ec4899;" data-color="#ec4899" title="Hồng"></div>
+                    <div class="theme-color" style="background-color: #0ea5e9;" data-color="#0ea5e9" title="Xanh dương"></div>
+                    <div class="theme-color" style="background-color: #facc15;" data-color="#facc15" title="Vàng"></div>
+                    <div class="theme-color" style="background-color: #64748b;" data-color="#64748b" title="Xám"></div>
+                    <div class="theme-color" style="background-color: #6d28d9;" data-color="#6d28d9" title="Tím đậm"></div>
+                </div>
+            </div>
+            <div class="panel-section">
+                <h5>Màu tùy chỉnh</h5>
+                <div class="theme-custom">
+                    <input type="color" id="customColorPicker" value="#4f46e5">
+                    <button class="small-btn" id="applyCustomTheme">Áp dụng</button>
+                </div>
+            </div>
+            <div class="panel-section">
+                <h5>Chế độ hiển thị</h5>
+                <div class="theme-actions">
+                    <div class="toggle-container">
+                        <input type="checkbox" id="darkModeToggle" class="toggle-input">
+                        <label for="darkModeToggle" class="toggle-label">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-text">Chế độ tối</span>
+                        </label>
+                    </div>
+                    <div class="toggle-container">
+                        <input type="checkbox" id="reducedMotionToggle" class="toggle-input">
+                        <label for="reducedMotionToggle" class="toggle-label">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-text">Giảm hiệu ứng động</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button class="secondary-btn" id="resetThemeBtn">Khôi phục mặc định</button>
+                <button class="primary-btn" id="saveThemeBtn">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal - Nâng cấp -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-gear"></i> Cài đặt hệ thống</h3>
+                <button class="close-modal"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="tabs-container">
+                    <div class="tabs-header">
+                        <button class="tab-btn active" data-tab="general">
+                            <i class="fa-solid fa-sliders"></i> Chung
+                        </button>
+                        <button class="tab-btn" data-tab="appearance">
+                            <i class="fa-solid fa-palette"></i> Giao diện
+                        </button>
+                        <button class="tab-btn" data-tab="advanced">
+                            <i class="fa-solid fa-code"></i> Nâng cao
+                        </button>
+                        <button class="tab-btn" data-tab="account">
+                            <i class="fa-solid fa-user-gear"></i> Tài khoản
+                        </button>
+                    </div>
+                    <div class="tab-content active" id="generalTab">
+                        <div class="settings-section">
+                            <h4>Tùy chọn chung</h4>
+                            <div class="setting-item">
+                                <label for="autoStartToggle">Tự động khởi động</label>
+                                <input type="checkbox" id="autoStartToggle" class="toggle-input" checked>
+                                <label for="autoStartToggle" class="toggle-label small">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label for="notificationsToggle">Thông báo</label>
+                                <input type="checkbox" id="notificationsToggle" class="toggle-input" checked>
+                                <label for="notificationsToggle" class="toggle-label small">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label for="autoSaveToggle">Tự động lưu lịch sử</label>
+                                <input type="checkbox" id="autoSaveToggle" class="toggle-input" checked>
+                                <label for="autoSaveToggle" class="toggle-label small">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label for="languageSelect">Ngôn ngữ</label>
+                                <select id="languageSelect" class="select-input">
+                                    <option value="vi" selected>Tiếng Việt</option>
+                                    <option value="en">English</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="appearanceTab">
+                        <div class="settings-section">
+                            <h4>Tùy chọn hiển thị</h4>
+                            <div class="setting-item">
+                                <label for="settingsDarkMode">Chế độ tối</label>
+                                <input type="checkbox" id="settingsDarkMode" class="toggle-input">
+                                <label for="settingsDarkMode" class="toggle-label small">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label for="fontSizeSelect">Cỡ chữ</label>
+                                <select id="fontSizeSelect" class="select-input">
+                                    <option value="small">Nhỏ</option>
+                                    <option value="medium" selected>Vừa</option>
+                                    <option value="large">Lớn</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <label for="fontFamilySelect">Font chữ</label>
+                                <select id="fontFamilySelect" class="select-input">
+                                    <option value="roboto" selected>Roboto</option>
+                                    <option value="montserrat">Montserrat</option>
+                                    <option value="opensans">Open Sans</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                 <label>Giao diện màu</label>
+                                <button id="openThemePickerBtn" class="secondary-btn">
+                                    <i class="fa-solid fa-palette"></i> Tùy chỉnh màu
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="advancedTab">
+                        <div class="settings-section">
+                            <h4>Tùy chọn nâng cao</h4>
+                            <div class="setting-item">
+                                <label for="apiKeyInput">API Key</label>
+                                <div class="api-key-input">
+                                         <input type="password" id="apiKeyInput" class="text-input" placeholder="Nhập API key" value="sk-*************************">
+                                    <button class="icon-btn" id="showApiKeyBtn">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <label for="modelSelect">Mô hình</label>
+                                <select id="modelSelect" class="select-input">
+                                    <option value="standard" selected>Tiêu chuẩn</option>
+                                    <option value="advanced">Nâng cao</option>
+                                    <option value="turbo">Turbo (Mới)</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <label for="precisionSlider">Độ chính xác</label>
+                                <div class="slider-container">
+                                    <input type="range" min="1" max="5" value="4" class="slider" id="precisionSlider">
+                                    <div class="slider-labels">
+                                        <span>Thấp</span>
+                                        <span>Cao</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <label for="debugModeToggle">Chế độ gỡ lỗi</label>
+                                <input type="checkbox" id="debugModeToggle" class="toggle-input">
+                                <label for="debugModeToggle" class="toggle-label small">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
